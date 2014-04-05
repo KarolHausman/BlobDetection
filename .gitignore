@@ -19,3 +19,10 @@
 *.exe
 *.out
 *.app
+
+# bin and build folders
+bin
+build
+
+# temporary files
+*~
