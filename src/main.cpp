@@ -21,12 +21,20 @@ int main( int argc, char** argv )
   std::vector<Blob> blobs;
   cv::Mat blobs_image;
 
-  blobDetector.detectBlackBlob(input_image, blobs_image, blobs);
+  blobDetector.detectBlobs(input_image, blobs_image, blobs, 0, 50);
+  std::cout << "number of blobs = " << blobs.size() << std::endl;
+
+  for(uint i = 0; i < blobs.size(); i++)
+  {
+      std::cout << "blob " << i << " area = " << blobs[i].area_ << " circularity = " << blobs[i].circularity_ << std::endl;
+  }
 
   cv::namedWindow( "Blobs Image", CV_WINDOW_AUTOSIZE );
   cv::imshow( "Blobs Image", blobs_image );
 
   cv::waitKey(0);
+
+  cv::imwrite("output.jpg", blobs_image);
 
   return 0;
 }
