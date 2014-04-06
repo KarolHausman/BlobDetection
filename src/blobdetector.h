@@ -21,7 +21,6 @@ public:
     BlobDetector();
 
     void detectBlackBlob(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs);
-    void printImageValues(const cv::Mat& image);
 
 };
 

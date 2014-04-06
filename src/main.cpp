@@ -23,8 +23,6 @@ int main( int argc, char** argv )
 
   blobDetector.detectBlackBlob(input_image, blobs_image, blobs);
 
-  blobDetector.printImageValues(blobs_image);
-
   cv::namedWindow( "Blobs Image", CV_WINDOW_AUTOSIZE );
   cv::imshow( "Blobs Image", blobs_image );
 
