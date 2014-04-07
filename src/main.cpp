@@ -21,7 +21,12 @@ int main( int argc, char** argv )
   std::vector<Blob> blobs;
   cv::Mat blobs_image;
 
-  blobDetector.detectBlobs(input_image, blobs_image, blobs, 0, 50);
+  blobDetector.detectBlobsLaplacian(input_image, blobs_image, blobs);
+
+//  std::cout << blobs_image <<std::endl;
+
+//  blobDetector.detectBlobsContours(input_image, blobs_image, blobs, 0 ,50);
+//  blobDetector.detectBlobs(input_image, blobs_image, blobs, 0, 50);
   std::cout << "number of blobs = " << blobs.size() << std::endl;
 
   for(uint i = 0; i < blobs.size(); i++)
@@ -33,8 +38,8 @@ int main( int argc, char** argv )
   cv::imshow( "Blobs Image", blobs_image );
 
   cv::waitKey(0);
+//  cv::imwrite("output.jpg", blobs_image);
 
-  cv::imwrite("output.jpg", blobs_image);
 
   return 0;
 }
