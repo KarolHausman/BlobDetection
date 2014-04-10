@@ -201,20 +201,92 @@ void BlobDetector::detectBlobsContours(const cv::Mat& input_image, cv::Mat& blob
 
 }
 
-void BlobDetector::generateBlobImages(const int& images_number, cv::vector <cv::Mat>& images)
+void BlobDetector::generateBlobImages(const int& images_number, const int& circles_number, const int& rect_number, std::vector <cv::Mat>& images)
 {
     for (uint i=0; i < images_number; i++)
     {
-        int x = rand() % 300 + 10;
-        int y = rand() % 300 + 10;
+        int rows = rand() % 600 + 60;
+        int cols = rand() % 600 + 60;
 
-        cv::Mat image = cv::Mat(x, y, CV_8U);
-//        cv::randu(image, )
-//        cv::randn()
+        cv::Mat image = cv::Mat(rows, cols, CV_8U);
+        cv::randu(image, cv::Scalar(60), cv::Scalar(255));
+
+        for(uint j = 0; j < circles_number; j++)
+        {
+            int radius =(int) (rand() % (std::min(rows,cols) / 4) +5);
+            int xc = rand() % (cols - 1) + 1;
+            int yc = rand() % (rows - 1) + 1;
+            cv::Point circle_center = cv::Point(xc, yc);
+            cv::circle(image, circle_center, radius, cv::Scalar(0), -1);
+        }
+
+        for(uint k = 0; k < rect_number; k++)
+        {
+            int xr = rand() % (cols - 1) + 1;
+            int yr = rand() % (rows - 1) + 1;
+            int hr = rand() % (cols - 1) + 1;
+            int wr = rand() % (rows - 1) + 1;
+
+            cv::Rect rect = cv::Rect(xr, yr, hr, wr);
+            cv::rectangle(image, rect, cv::Scalar(0), -1);
+        }
+
+        cv::blur(image, image, cv::Size(5, 5));
+
+        cv::namedWindow( "generated", CV_WINDOW_AUTOSIZE );
+        cv::imshow( "generated", image );
+        cv::waitKey(0);
+
+    }
+}
+
+void BlobDetector::generateKnownBlobImage(cv::Mat& image, std::vector <Blob>& blobs)
+{
+    int rows = rand() % 400 + 200;
+    int cols = rand() % 400 + 200;
+
+    image = cv::Mat(rows, cols, CV_8U);
+    image.setTo(cv::Scalar(255));
+
+    bool stop = false;
+
+    for(uint i = 0; i < 10; i++)
+    {
+        stop = false;
+        int radius =(int) (rand() % (std::min(rows,cols) / 8) +50);
+        int xc = rand() % (cols - 2*radius) + radius;
+        int yc = rand() % (rows - 2*radius) + radius;
+
+        std::cout<< " cols: " << cols << " rows: " << rows << " radius: " << radius << " xc: " << xc << " yc: " << yc << std::endl;
+
+
+        cv::Point circle_center = cv::Point(xc, yc);
+        for (std::vector< Blob>::iterator itr = blobs.begin(); itr != blobs.end(); itr++)
+        {
+            if( cv::norm(itr->center_ - circle_center) < radius + sqrt(itr->area_/ M_PI) + 2)
+            {
+                stop = true;
+                break;
+            }
+        }
+
+        if ( stop )
+        {
+            std::cout<< "stopped" <<std::endl;
+            continue;
+        }
+
+
+        cv::circle(image, circle_center, radius, cv::Scalar(0), -1);
+        Blob blob(circle_center, M_PI * radius * radius, 1);
+        blobs.push_back(blob);
 
 
     }
 }
+
+
+
 
 
 
