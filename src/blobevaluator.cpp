@@ -67,7 +67,7 @@ void BlobEvaluator::evaluate (BlobDetector& blob_detector, const int& images_num
     {
         cv::Mat gen_image;
         gen_blobs.clear();
-        generateKnownBlobImage( gen_image, gen_blobs );        
+        generateKnownBlobImage( gen_image, gen_blobs );
 
         cv::Mat blobs_image;
         detected_blobs.clear();
@@ -143,7 +143,7 @@ void BlobEvaluator::generateKnownBlobImage(cv::Mat& image, std::vector <Blob>& b
     for(uint i = 0; i < 10; i++)
     {
         stop = false;
-        int radius =(int) (rand() % (std::min(rows,cols) / 8) +30);
+        int radius =(int) (rand() % (std::min(rows,cols) / 8) + 30);
         int xc = rand() % (cols - 2*radius) + radius;
         int yc = rand() % (rows - 2*radius) + radius;
 
@@ -162,7 +162,9 @@ void BlobEvaluator::generateKnownBlobImage(cv::Mat& image, std::vector <Blob>& b
             continue;
         }
         cv::circle(image, circle_center, radius, cv::Scalar(0), -1);
-        Blob blob(circle_center, (int)(M_PI * radius * radius), 1);
+        int area = cv::floodFill(image, circle_center, cv::Scalar(0));
+
+        Blob blob(circle_center, area, 1);
         blobs.push_back(blob);
     }
 }

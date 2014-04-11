@@ -50,11 +50,31 @@ public:
      */
     virtual void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity, const int& max_intensity) = 0;
 
+    void setGaussianBlurSize(const int& gaussian_blur_size);
+    void setMinBlobRadius(const int& min_blob_radius);
+    void setMaxCircularityToDrawCircle(const double& max_circularity_to_draw_circle);
+    void setMinCircularityToDrawCircle(const double& min_circularity_to_draw_circle);
+    void setBlobRadius(const double& blob_radius);
+
+    int getGaussianBlurSize();
+    int getMinBlobRadius();
+    double getMaxCircularityToDrawCircle();
+    double getMinCircularityToDrawCircle();
+    double getBlobRadius();
+
+
+
+
 protected:
+    // size of the mask for gaussian blur
     int gaussian_blur_size_;
+    // min size of the blob to be accepted
     int min_blob_radius_;
+    // max circularity for a blob to be accepted as a circular
     double max_circularity_to_draw_circle_;
+    // min circularity for a blob to be accepted as a circular
     double min_circularity_to_draw_circle_;
+    // radius of the circle that is drawn in each blob center
     double blob_radius_;
 };
 

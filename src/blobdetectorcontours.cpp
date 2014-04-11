@@ -9,6 +9,27 @@ BlobDetectorContours::~BlobDetectorContours()
 {
 }
 
+void BlobDetectorContours::setCannyThreshold(const uint& canny_threshold)
+{
+    canny_threshold_ = canny_threshold;
+}
+
+uint BlobDetectorContours::getCannyThreshold()
+{
+    return canny_threshold_;
+}
+
+
+void BlobDetectorContours::setMinContourSize(const uint& min_contour_size)
+{
+    min_contour_size_ = min_contour_size;
+}
+
+uint BlobDetectorContours::getMinContourSize()
+{
+    return min_contour_size_;
+}
+
 
 void BlobDetectorContours::detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity, const int& max_intensity)
 {

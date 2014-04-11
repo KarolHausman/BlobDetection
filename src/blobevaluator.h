@@ -35,6 +35,7 @@ private:
      */
     void compare_blobs (const std::vector <Blob>& gen_blobs, const std::vector <Blob>& detected_blobs, double& center_error, double& area_error, double& circularity_error);
 
+    // min and max intensities that blobDetect is called with
     int min_intensity_;
     int max_intensity_;
 

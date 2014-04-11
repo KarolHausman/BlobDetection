@@ -11,6 +11,38 @@ BlobDetectorFloodFill::~BlobDetectorFloodFill()
 }
 
 
+void BlobDetectorFloodFill::setFloodfillLoDiff(const cv::Scalar& floodfill_lo_diff)
+{
+    floodfill_lo_diff_ = floodfill_lo_diff;
+}
+
+void BlobDetectorFloodFill::setFloodfillUpDiff(const cv::Scalar& floodfill_up_diff)
+{
+    floodfill_up_diff_ = floodfill_up_diff;
+}
+
+void BlobDetectorFloodFill::setMaskSizeDistanceTransform(const int& mask_size_distance_transform)
+{
+    mask_size_distance_transform_ = mask_size_distance_transform;
+}
+
+cv::Scalar BlobDetectorFloodFill::getFloodfillLoDiff()
+{
+    return floodfill_lo_diff_;
+}
+
+cv::Scalar BlobDetectorFloodFill::getFloodfillUpDiff()
+{
+    return floodfill_up_diff_;
+}
+
+int BlobDetectorFloodFill::getMaskSizeDistanceTransform()
+{
+    return mask_size_distance_transform_;
+}
+
+
+
 
 void BlobDetectorFloodFill::detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity, const int& max_intensity)
 {
