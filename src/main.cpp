@@ -65,17 +65,20 @@ int main( int argc, char** argv )
         std::vector<Blob> blobs;
         cv::Mat blobs_image;
 
-        if (argc > 3)
+        if ((argc > 3) || (argc == 2))
         {
             blobDetector = new BlobDetectorFloodFill;
+            std::cout << "Running FloodFill" << std::endl;
         }
         else if (std::string(argv[2]) == "1")
         {
             blobDetector = new BlobDetectorFloodFill;
+            std::cout << "Running FloodFill" << std::endl;
         }
         else
         {
             blobDetector = new BlobDetectorContours;
+            std::cout << "Running Contours" << std::endl;
         }
 
 

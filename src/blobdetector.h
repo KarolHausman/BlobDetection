@@ -31,7 +31,7 @@ class BlobDetector
 {
 public:
     BlobDetector():
-        min_blob_radius_(10), gaussian_blur_size_(3), max_circularity_to_draw_circle_(1.4),
+        min_blob_radius_(10), gaussian_blur_size_(3), max_circularity_to_draw_circle_(1.5),
         min_circularity_to_draw_circle_(0.6), blob_radius_(2){}
     virtual ~BlobDetector(){}
 

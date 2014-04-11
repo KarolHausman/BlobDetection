@@ -27,9 +27,6 @@ void BlobDetectorContours::detectBlobs(const cv::Mat& input_image, cv::Mat& blob
         cv::morphologyEx(processed_image, processed_image, cv::MORPH_CLOSE, cv::Mat());
 
         no_color_flag = false;
-        cv::namedWindow( "Blobs Image", CV_WINDOW_AUTOSIZE );
-        cv::imshow( "Blobs Image", processed_image );
-        cv::waitKey(0);
     }
     else
     {
@@ -67,11 +64,9 @@ void BlobDetectorContours::detectBlobs(const cv::Mat& input_image, cv::Mat& blob
             }
             // draw centers if it's not circular enough
             cv::circle( blobs_image, mc, blob_radius_, color);
-
             // add blob
             Blob blob( mc, area, circularity);
             blobs.push_back(blob);
-
         }
     }
 
