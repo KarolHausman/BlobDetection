@@ -4,7 +4,12 @@
 #include <chrono>
 
 
-BlobEvaluator::BlobEvaluator()
+BlobEvaluator::BlobEvaluator():
+    min_intensity_(0), max_intensity_(50)
+{
+}
+
+BlobEvaluator::~BlobEvaluator()
 {
 }
 
@@ -68,7 +73,7 @@ void BlobEvaluator::evaluate (BlobDetector& blob_detector, const int& images_num
         detected_blobs.clear();
 
         auto begin = std::chrono::high_resolution_clock::now();
-        blob_detector.detectBlobs(gen_image, blobs_image, detected_blobs);
+        blob_detector.detectBlobs(gen_image, blobs_image, detected_blobs, min_intensity_, max_intensity_);
         auto end = std::chrono::high_resolution_clock::now();
         times.push_back(std::chrono::duration_cast<std::chrono::milliseconds>(end-begin).count());
 

@@ -3,13 +3,19 @@
 
 #include "blobdetector.h"
 
+
+/*
+ *  implements detectBlobs method where it uses
+ *  floodfill algorithm to determine all the important information
+ *  about the drone
+ */
 class BlobDetectorFloodFill: public BlobDetector {
 
 public:
     BlobDetectorFloodFill();
     virtual ~BlobDetectorFloodFill();
 
-    void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity = 0, const int& max_intensity = 50);
+    void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity, const int& max_intensity);
 
 private:
     cv::Scalar floodfill_lo_diff_;

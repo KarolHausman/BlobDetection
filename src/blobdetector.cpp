@@ -17,3 +17,8 @@ bool operator < (const Blob& b1, const Blob& b2)
     return cv::norm (b1.center_) < cv::norm (b2.center_);
 }
 
+bool operator > (const Blob& b1, const Blob& b2)
+{
+    return cv::norm (b1.center_) > cv::norm (b2.center_);
+}
+

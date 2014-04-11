@@ -17,6 +17,7 @@ void BlobDetectorFloodFill::detectBlobs(const cv::Mat& input_image, cv::Mat& blo
     if ( (max_intensity > 255) || (max_intensity < 0) || (min_intensity > 255) || (max_intensity < 0) )
     {
         std::cerr << "Wrong intensity values! " << std::endl;
+        blobs_image = input_image;
         return;
     }
 

@@ -62,6 +62,8 @@ int main( int argc, char** argv )
             return -1;
         }
 
+        int min_intensity = 0;
+        int max_intensity = 50;
         std::vector<Blob> blobs;
         cv::Mat blobs_image;
 
@@ -75,14 +77,20 @@ int main( int argc, char** argv )
             blobDetector = new BlobDetectorFloodFill;
             std::cout << "Running FloodFill" << std::endl;
         }
-        else
+        else if (std::string(argv[2]) == "2")
         {
             blobDetector = new BlobDetectorContours;
             std::cout << "Running Contours" << std::endl;
         }
+        else
+        {
+            blobDetector = new BlobDetectorContours;
+            min_intensity = max_intensity = -1;
+            std::cout << "Running Contours without thresholding" << std::endl;
+        }
 
 
-        blobDetector->detectBlobs(input_image, blobs_image, blobs);
+        blobDetector->detectBlobs(input_image, blobs_image, blobs, min_intensity, max_intensity);
         delete blobDetector;
 
         for(uint i = 0; i < blobs.size(); i++)
