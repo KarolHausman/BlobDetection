@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
-#include "blobdetector.h"
+#include "blobdetectorfloodfill.h"
+#include "blobdetectorcontours.h"
+#include "blobevaluator.h"
 
 
 int main( int argc, char** argv )
@@ -14,17 +16,33 @@ int main( int argc, char** argv )
       return -1;
     }
 
+
+
   srand(time(NULL));
 
-  BlobDetector blobDetector;
+  BlobDetectorFloodFill blobDetector;
 
+/*  BlobEvaluator BlobEvaluator;
+
+  double center_error = 0;
+  double area_error = 0;
+  double circularity_error = 0;
+  BlobEvaluator.evaluate(blobDetector, 10, center_error, area_error, circularity_error);
+
+  std::cout<< "center = " << center_error << std::endl;
+  std::cout<< "area = " << area_error << std::endl;
+  std::cout<< "circularity = " << circularity_error << std::endl;
+*/
   std::vector<Blob> blobs;
   cv::Mat blobs_image;
+
+
+
 
 //  std::vector<cv::Mat> images;
 //  blobDetector.generateBlobImages(7, 3, 1, images);
 
-  cv::Mat gen_image;
+/*  cv::Mat gen_image;
   blobDetector.generateKnownBlobImage(gen_image, blobs);
 
   std::cout << "size of blobs: " << blobs.size() << std::endl;
@@ -49,6 +67,8 @@ int main( int argc, char** argv )
     {
         std::cout << "blob " << i << " center = " << blobs_out[i].center_.x << ", " << blobs_out[i].center_.y << " area = " << blobs_out[i].area_ << " circularity = " << blobs_out[i].circularity_ << std::endl;
     }
+*/
+
 
 
 //  blobDetector.detectBlobsLaplacian(input_image, blobs_image, blobs);
@@ -58,16 +78,19 @@ int main( int argc, char** argv )
 //  std::cout << blobs_image <<std::endl;
 
 //  blobDetector.detectBlobsContours(input_image, blobs_image, blobs, 0 ,50);
-//  blobDetector.detectBlobs(input_image, blobs_image, blobs, 0, 50);
-//  std::cout << "number of blobs = " << blobs.size() << std::endl;
+  blobDetector.detectBlobs(input_image, blobs_image, blobs);
 
-//  for(uint i = 0; i < blobs.size(); i++)
-//  {
-//      std::cout << "blob " << i << " area = " << blobs[i].area_ << " circularity = " << blobs[i].circularity_ << std::endl;
-//  }
+
+
+  std::cout << "number of blobs = " << blobs.size() << std::endl;
+
+  for(uint i = 0; i < blobs.size(); i++)
+  {
+      std::cout << "blob " << i << " area = " << blobs[i].area_ << " circularity = " << blobs[i].circularity_ << std::endl;
+  }
 
   cv::namedWindow( "Blobs Image", CV_WINDOW_AUTOSIZE );
-  cv::imshow( "Blobs Image", blobs_image );
+  cv::imshow( "Blobs Image", input_image );
 
   cv::waitKey(0);
 //  cv::imwrite("output.jpg", blobs_image);

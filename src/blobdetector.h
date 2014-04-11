@@ -3,7 +3,6 @@
 #include <opencv2/opencv.hpp>
 
 
-
 struct Blob
 {
     Blob();
@@ -15,25 +14,24 @@ struct Blob
     double circularity_;
 };
 
-
 class BlobDetector
 {
 public:
-    BlobDetector();
+    BlobDetector():
+        circle_brightness_(175), min_blob_radius_(10), gaussian_blur_size_(3), blob_brightness_(255),
+        max_circularity_to_draw_circle_(1.4), min_circularity_to_draw_circle_(0.6), blob_radius_(2){}
+    virtual ~BlobDetector(){}
 
-    void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity = 0, const int& max_intensity = 50);
-    void detectBlobsContours(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity = -1, const int& max_intensity = -1);
-    void detectBlobsLaplacian(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs);
-    void generateBlobImages(const int& images_number, const int& circles_number, const int& rect_number, std::vector <cv::Mat>& images);
-    void generateKnownBlobImage(cv::Mat& image, std::vector <Blob>& blobs);
+    virtual void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity = 0, const int& max_intensity = 50) = 0;
 
-
-private:
-    void buildLaplacianPyramid(const cv::Mat& input_image, std::vector< cv::Mat >& pyramid, cv::Mat& smallest_level, const int& levels);
-    void buildGaussianPyramid(const cv::Mat& input_image, std::vector< cv::Mat >& pyramid, cv::Mat& smallest_level, const int& levels);
-
-
-
+protected:
+    int gaussian_blur_size_;
+    int min_blob_radius_;
+    int circle_brightness_;
+    int blob_brightness_;
+    int max_circularity_to_draw_circle_;
+    int min_circularity_to_draw_circle_;
+    double blob_radius_;
 };
 
 #endif // BLOBDETECTOR_H
