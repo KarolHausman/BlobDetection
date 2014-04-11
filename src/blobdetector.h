@@ -12,14 +12,27 @@ struct Blob
     cv::Point center_;
     double area_;
     double circularity_;
+
+    void operator= (const Blob& b2 )
+    {
+          center_ = b2.center_;
+          area_ = b2.area_;
+          circularity_ = b2.circularity_;
+    }
+
 };
+Blob operator- ( const Blob& b1, const Blob& b2);
+std::ostream& operator << (std::ostream &o, const Blob& b);
+bool operator < (const Blob& b1, const Blob& b2);
+
+
 
 class BlobDetector
 {
 public:
     BlobDetector():
-        circle_brightness_(175), min_blob_radius_(10), gaussian_blur_size_(3), blob_brightness_(255),
-        max_circularity_to_draw_circle_(1.4), min_circularity_to_draw_circle_(0.6), blob_radius_(2){}
+        min_blob_radius_(10), gaussian_blur_size_(3), max_circularity_to_draw_circle_(1.4),
+        min_circularity_to_draw_circle_(0.6), blob_radius_(2){}
     virtual ~BlobDetector(){}
 
     virtual void detectBlobs(const cv::Mat& input_image, cv::Mat& blobs_image, std::vector<Blob>& blobs, const int& min_intensity = 0, const int& max_intensity = 50) = 0;
@@ -27,10 +40,8 @@ public:
 protected:
     int gaussian_blur_size_;
     int min_blob_radius_;
-    int circle_brightness_;
-    int blob_brightness_;
-    int max_circularity_to_draw_circle_;
-    int min_circularity_to_draw_circle_;
+    double max_circularity_to_draw_circle_;
+    double min_circularity_to_draw_circle_;
     double blob_radius_;
 };
 
